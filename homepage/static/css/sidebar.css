@@ -19,7 +19,7 @@
   left: 0;
   height: 100vh;
   z-index: 999;
-  background: #4e6570;
+  background: #426dd3;
   color: #fff;
   transition: all 0.3s;
 }
@@ -30,12 +30,12 @@
 
 .sidebar-header {
   padding: 20px;
-  background: #607d8b;
+  background: #426dd3;
 }
 
 .sidebar-components {
   padding: 20px 0;
-  border-bottom: 1px solid #607d8b;
+  border-bottom: 1px solid #426dd3;
 }
 
 .sidebar-paragraph {
@@ -62,14 +62,14 @@ a.right-arrow[data-toggle="collapse"] {
 }
 
 .sidebar-button:hover {
-  color: #607d8b;
+  color: #7c7e80;
   background: #fff;
 }
 
 .sidebar-subitem {
   font-size: 0.9em !important;
   padding-left: 30px !important;
-  background: #3c515a;
+  background: #7c7e80;
 }
 
 ul.CTAs {
