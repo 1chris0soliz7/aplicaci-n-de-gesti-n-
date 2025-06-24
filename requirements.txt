@@ -1,0 +1,2 @@
+﻿
+pip install django-widget-tweaks django-crispy-forms django-login-required-middleware django-bootstrap-v5 crispy-bootstrap5 django-filter

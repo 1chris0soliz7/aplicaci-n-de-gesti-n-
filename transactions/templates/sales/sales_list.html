@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} Lista de Ventas {% endblock title %}
+
+
+{% block content %}
+    
+    <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
+        <div class="col-md-8">Lista de Ventas</div>
+        <div class="col-md-4">               
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-sale' %}">Nuevo Stock Saliente</a> </div>
+        </div>
+    </div>
+    
+    <br>
+
+    <table class="table table-css table-bordered table-hover"> 
+            
+        <thead class="thead-dark align-middle">
+            <tr><!-- Inicia sesión en codeastro.com para más proyectos -->
+                <th width="10%">N° Factura</th>
+                <th width="15%">Cliente</th>
+                <th width="15%">Stocks Vendidos</th>
+                <th width="10%">Cantidad Vendida</th>
+                <th width="10%">Precio Total de Venta</th>
+                <th width="15%">Fecha</th>
+                <th width="25%">Acciones</th>
+            </tr>
+        </thead>
+
+{% if bills %}
+
+        <tbody>
+            {% for sale in bills %}
+            <tr><!-- Inicia sesión en codeastro.com para más proyectos -->
+                <td class="align-middle"> <p>{{ sale.billno }}</p> </td>
+                <td class=""> {{ sale.name }} <br> <small style="color: #909494">Tel: {{ sale.phone }}</small> </td>
+                <td class="align-middle">{% for item in sale.get_items_list %} {{ item.stock.name }} <br> {% endfor %}</td>
+                <td class="align-middle">{% for item in sale.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
+                <td class="align-middle">L.{{ sale.get_total_price }}</td>
+                <td class="align-middle">{{ sale.time.date }}</td>
+                <td class="align-middle"> <a href="{% url 'sale-bill' sale.billno %}" class="btn btn-secondary btn-sm">Ver Factura</a> <a href="{% url 'delete-sale' sale.pk %}" class="btn btn-danger btn-sm">Eliminar Factura</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle"><!-- Inicia sesión en codeastro.com para más proyectos -->
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+
+        <tbody></tbody>  <!-- Inicia sesión en codeastro.com para más proyectos --> 
+    </table>
+
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">No hay registros. Por favor, intenta agregar alguno.</div>
+
+{% endif %}
+
+{% endblock content %}

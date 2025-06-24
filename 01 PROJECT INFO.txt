@@ -1,0 +1,11 @@
+**¡Visita codeastro.com para ver más proyectos!**
+
+**Desarrollado por Akash Roshan**
+
+**Instrucciones**
+- Instalar los requisitos: pip install -r requirements.txt
+- Luego, migrar la base de datos: python manage.py makemigrations
+-python manage.py migration
+- Finalmente, ejecutar la aplicación: python manage.py runserver
+
+Para cuentas de administrador, crea una con superusuario.

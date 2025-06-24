@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} Lista de Proveedores {% endblock title %}
+
+
+{% block content %}
+    
+    <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
+        <div class="col-md-8">Lista de Proveedores</div>
+        <div class="col-md-4">       <!-- Inicia sesión en codeastro.com para más proyectos -->        
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-supplier' %}">Agregar Nuevo Proveedor</a> </div>
+        </div>
+    </div>
+
+    <br>
+
+    <table class="table table-css table-hover table-bordered">
+        
+        <thead class="thead-dark align-middle">
+            <tr>
+                <th width="25%">Nombre</th>
+                <th width="20%">Contacto</th>
+                <th width="25%">RTN No</th>
+                <th width="30%">Acciones</th>
+            </tr>
+        </thead>
+
+{% if object_list %}
+
+        <tbody>
+            {% for supplier in object_list %}
+            <tr>
+                <td><!-- Inicia sesión en codeastro.com para más proyectos -->
+                    <p> <a href="{% url 'supplier' supplier.name %}">{{ supplier.name }}</a> </p>
+                </td>
+                <td class="align-middle"> {{ supplier.phone }} </td>
+                <td class="align-middle"> {{ supplier.gstin }} </td>
+                <td class="align-middle">
+                    <div class="align-middle">
+                        <a href="{% url 'edit-supplier' supplier.pk %}" class="btn btn-info btn-sm">Editar Detalles</a>
+                        <a href="{% url 'delete-supplier' supplier.pk %}" class="btn btn-danger btn-sm">Eliminar Proveedor</a>
+                    </div>
+                </td>              
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle"><!-- Inicia sesión en codeastro.com para más proyectos -->
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+
+        <tbody></tbody>   
+    </table><!-- Inicia sesión en codeastro.com para más proyectos -->
+
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">No hay registros. Por favor, intenta agregar alguno.</div>
+
+{% endif %}
+
+
+{% endblock content %}

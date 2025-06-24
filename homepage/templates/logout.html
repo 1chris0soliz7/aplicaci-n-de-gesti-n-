@@ -1,0 +1,51 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!-- Metadatos requeridos -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}">
+
+    <!-- CSS principal, luego CSS de la barra lateral-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">    
+    
+    <title>IMS - Cerrar Sesión</title>
+
+</head>
+
+<body>
+
+    <div class="align-middle" style="color: #607d8b; font-style: bold; font-size: 3rem;">Sistema de Gestión de Inventario</div>
+    <br>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+        
+            <h2 class="align-middle" style="color: #494949;">¡Has cerrado sesión! Gracias por usar IMS</h2>
+            <div class="border-top pt-3 align-middle">
+                <a href="{% url 'login' %}"><button class="ml-2 btn btn-outline-secondary btn-lg">Iniciar Sesión Nuevamente</button></a> <br><br>
+                {# <button class="ml-2 ghost-red">Salir</button> #}
+            </div>
+    
+            <div class="align-middle"> <a href="{% url 'about' %}">Acerca de</a> </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery primero, luego Popper.js, luego Bootstrap JS -->
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

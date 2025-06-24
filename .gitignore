@@ -1,0 +1,10 @@
+# Python cache files
+__pycache__/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# Base de datos
+*.sqlite3
+*.db

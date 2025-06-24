@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  Perfil de {{ supplier.name }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="content-section">
+        <div class="media"><!-- Inicia sesión en codeastro.com para más proyectos -->
+            <div class="media-body">
+                <h2 style="color:#575757;" class="account-heading">&nbsp;{{ supplier.name }}</h2>
+                <a href="{% url 'edit-supplier' supplier.pk %}" class="btn btn-info" style="float: right;">Editar Detalles</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="fal">
+                            <b>Contacto &nbsp; &nbsp;&nbsp; :</b> {{ supplier.phone }} <br>
+                            <b>Correo electrónico &nbsp;&nbsp;&nbsp;&nbsp; :</b> {{ supplier.email }} <br>
+                            <b>RTN No &nbsp; :</b> {{ supplier.gstin }} <br>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="fal">
+                            <b>Dirección:</b> <br> {{ supplier.address|linebreaks }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-css table-hover table-bordered">
+        
+        <br>
+        
+        <thead class="thead-dark align-middle">
+            <tr>
+                <th width="10%">N° Factura</th>
+                <th width="15%">Stocks</th>
+                <th width="15%">Cantidad</th>
+                <th width="15%">Precio Total de Compra</th>
+                <th width="15%">Fecha de Compra</th>
+                <th width="30%">Acciones</th>
+            </tr><!-- Inicia sesión en codeastro.com para más proyectos -->
+        </thead>
+      
+        <tbody>
+            {% for purchase in bills %}
+            <tr>
+                <td class="align-middle"> <p>{{ purchase.billno }}</p> </td>
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.stock.name }} <br> {% endfor %}</td>
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
+                <td class="align-middle">L.{{ purchase.get_total_price }}</td>
+                <td class="align-middle">{{ purchase.time.date }}</td>
+                <td class="align-middle"> <a href="{% url 'purchase-bill' purchase.billno %}" class="btn btn-secondary">Ver Factura</a> <a href="{% url 'delete-purchase' purchase.pk %}" class="btn btn-danger">Eliminar Factura</a> </td>
+            </tr><!-- Inicia sesión en codeastro.com para más proyectos -->
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle">
+        {% if bills.has_other_pages %}
+
+            {% if bills.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">Primera</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            {% for num in bills.paginator.page_range %}
+                {% if bills.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > bills.number|add:'-3' and num < bills.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if bills.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.next_page_number }}">Siguiente</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.paginator.num_pages }}">Última</a>
+            {% endif %}
+
+        {% endif %}
+    </div><!-- Inicia sesión en codeastro.com para más proyectos -->
+
+</div>
+
+{% endblock content %}
